@@ -364,6 +364,7 @@ function showHand(channelSent, player, target) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    console.log("here", target);
                     if (!SESSION_MAP[player.id]) {
                         channelSent.send("You don't have an active session. Start one by typing the following\n```\ntrag tulu\n```");
                         return [2 /*return*/];
@@ -378,7 +379,9 @@ function showHand(channelSent, player, target) {
                         channelSent.send("Only <@" + game.state.flashlightHolder.discordId + "> can point the flashlight.");
                         return [2 /*return*/];
                     }
-                    targetId = target.substring(3, target.length - 1);
+                    targetId = target.substring(2, target.length - 1);
+                    if (targetId[0] == '!')
+                        targetId = targetId.slice(1);
                     targetPlayer = game.findPlayer(targetId);
                     gamePlayer = game.findPlayer(player.id);
                     cards = targetPlayer.cards;

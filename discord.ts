@@ -307,6 +307,10 @@ export async function sendState(creatorId: string) {
 }
 
 async function showHand(channelSent: TextChannel, player: User, target: string) {
+
+
+	console.log("here",target);
+
 		if(!SESSION_MAP[player.id]) {
 			channelSent.send(`You don't have an active session. Start one by typing the following\n\`\`\`\ntrag tulu\n\`\`\``);
 			return;
@@ -329,7 +333,10 @@ async function showHand(channelSent: TextChannel, player: User, target: string) 
 			return;
 		}
 
-		const targetId = target.substring(3,target.length-1);
+		let targetId = target.substring(2,target.length-1);
+		if(targetId[0]=='!')
+			targetId = targetId.slice(1);
+
 		const targetPlayer = game.findPlayer(targetId);
 		const gamePlayer = game.findPlayer(player.id);
 		const cards = targetPlayer.cards;
