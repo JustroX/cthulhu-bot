@@ -308,9 +308,6 @@ export async function sendState(creatorId: string) {
 
 async function showHand(channelSent: TextChannel, player: User, target: string) {
 
-
-	console.log("here",target);
-
 		if(!SESSION_MAP[player.id]) {
 			channelSent.send(`You don't have an active session. Start one by typing the following\n\`\`\`\ntrag tulu\n\`\`\``);
 			return;
@@ -337,7 +334,18 @@ async function showHand(channelSent: TextChannel, player: User, target: string) 
 		if(targetId[0]=='!')
 			targetId = targetId.slice(1);
 
+		if( targetId == player.id ) {
+			channel.send(`Luh, tingnan mo to si <@${targetId}>. Nagpapahalata.`);
+			return;
+		}
+
 		const targetPlayer = game.findPlayer(targetId);
+
+		if(!targetPlayer) {
+			channel.send(`Grabe nandadamay ng iba.`);
+			return;
+		}
+
 		const gamePlayer = game.findPlayer(player.id);
 		const cards = targetPlayer.cards;
 		const emojis = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣'];

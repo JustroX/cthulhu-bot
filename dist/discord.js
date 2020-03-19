@@ -364,7 +364,6 @@ function showHand(channelSent, player, target) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log("here", target);
                     if (!SESSION_MAP[player.id]) {
                         channelSent.send("You don't have an active session. Start one by typing the following\n```\ntrag tulu\n```");
                         return [2 /*return*/];
@@ -382,7 +381,15 @@ function showHand(channelSent, player, target) {
                     targetId = target.substring(2, target.length - 1);
                     if (targetId[0] == '!')
                         targetId = targetId.slice(1);
+                    if (targetId == player.id) {
+                        channel.send("Luh, tingnan mo to si <@" + targetId + ">. Nagpapahalata.");
+                        return [2 /*return*/];
+                    }
                     targetPlayer = game.findPlayer(targetId);
+                    if (!targetPlayer) {
+                        channel.send("Grabe nandadamay ng iba.");
+                        return [2 /*return*/];
+                    }
                     gamePlayer = game.findPlayer(player.id);
                     cards = targetPlayer.cards;
                     emojis = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣'];
