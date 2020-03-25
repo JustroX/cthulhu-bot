@@ -48,6 +48,7 @@ var Game = /** @class */ (function () {
             players: [],
             elderScrollsFound: 0,
             flashlightHolder: {},
+            elderScrollsFoundThisRound: 0,
             turn: 0,
             deck: [],
             hold: [],
@@ -139,9 +140,10 @@ var Game = /** @class */ (function () {
             var currentRound;
             return __generator(this, function (_a) {
                 this.state.turn = 0;
+                this.state.elderScrollsFoundThisRound = 0;
                 currentRound = this.state.currentRound;
                 this.collectCards();
-                if (currentRound + 1 == 5) {
+                if (currentRound + 1 == 4) {
                     this.endByDefault();
                 }
                 else {
@@ -230,6 +232,7 @@ var Game = /** @class */ (function () {
     };
     Game.prototype.foundElderScroll = function () {
         this.state.elderScrollsFound += 1;
+        this.state.elderScrollsFoundThisRound += 1;
         if (this.state.elderScrollsFound == this.state.players.length) {
             this.endByElderScrolls();
         }
@@ -274,7 +277,7 @@ var Game = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!(this.state.elderScrollsFound == 0)) return [3 /*break*/, 2];
+                        if (!(this.state.elderScrollsFoundThisRound == 0)) return [3 /*break*/, 2];
                         return [4 /*yield*/, this.cultistsWon()];
                     case 1:
                         _a.sent();

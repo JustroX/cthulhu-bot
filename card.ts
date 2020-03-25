@@ -8,6 +8,7 @@ export type CardType = 'NECRONOMICON' | 'ELDER SCROLL' | 'CTHULHU' | 'POWER' | '
 export class Card {
 	disabled: boolean = false;
 	preRound: Function | undefined;
+	postRound: Function | undefined;
 	onSelect: Function | undefined;
 	cardType: CardType = 'BLANK';
 	constructor() {}

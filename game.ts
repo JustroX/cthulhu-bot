@@ -25,6 +25,7 @@ export interface GameState {
 	players: Player[],
 	elderScrollsFound: number,
 	flashlightHolder: Player,
+	elderScrollsFoundThisRound: number,
 
 	turn: number,
 	deck: Card[],	// communal deck
@@ -41,6 +42,7 @@ export class Game{
 		players: [],
 		elderScrollsFound: 0,
 		flashlightHolder: {} as any,
+		elderScrollsFoundThisRound: 0,
 		turn: 0,
 		deck: [],
 		hold: [],
@@ -112,10 +114,11 @@ export class Game{
 	async endRound() {
 
 		this.state.turn = 0;
+		this.state.elderScrollsFoundThisRound = 0;
 		const {currentRound} = this.state;
 		this.collectCards();
 
-		if(currentRound+1==5) {
+		if(currentRound+1==4) {
 			this.endByDefault();
 		} 
 		else {
@@ -193,6 +196,7 @@ export class Game{
 
 	foundElderScroll () {
 		this.state.elderScrollsFound +=1;
+		this.state.elderScrollsFoundThisRound +=1;
 		if(this.state.elderScrollsFound == this.state.players.length) {
 			this.endByElderScrolls();
 		}
@@ -222,7 +226,7 @@ export class Game{
 	}
 
 	async endByNecronomicon() {
-		if(this.state.elderScrollsFound == 0) {
+		if(this.state.elderScrollsFoundThisRound == 0) {
 			await this.cultistsWon();
 		} else this.endTurn();
 	}
